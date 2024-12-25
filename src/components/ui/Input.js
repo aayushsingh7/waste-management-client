@@ -6,12 +6,13 @@ const Input = ({
   type = "button",
   className = "",
   disabled = false,
+  border = false,
   ...props
 }) => {
   return (
     <input
       type={type}
-      className={`input ${className}`}
+      className={`input ${className} ${border ? "input-border" : ""}`}
       disabled={disabled}
       {...props}
     />

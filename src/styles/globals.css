@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -39,6 +40,8 @@
   font-size: 17px;
   color: var(--primary-color);
   border-radius: 10px;
+  outline: none;
+  width: 100%;
 }
 
 footer {
@@ -54,4 +57,8 @@ footer {
 footer p {
   font-size: 0.8rem;
   color: var(--primary-color);
+}
+
+.input-border {
+  border: 2px solid var(--light-border-color);
 }

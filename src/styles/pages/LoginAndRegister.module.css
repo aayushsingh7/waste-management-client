@@ -1,0 +1,91 @@
+.page {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-background);
+  height: 100dvh;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.page form {
+  width: 600px;
+  padding: 60px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.page form h2 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.inputs {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.page p {
+  color: var(--primary-color);
+  margin-top: 30px;
+  font-size: 0.8rem;
+}
+
+.page p a {
+  color: var(--active-light);
+}
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background: #222222;
+  border-radius: 10px;
+  padding: 20px;
+  border: 3px solid var(--light-border-color);
+  margin-top: 20px;
+}
+
+.banner h4 {
+  color: var(--primary-color);
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.banner p {
+  color: var(--primary-color);
+  margin-top: 7px !important;
+  font-size: 16px;
+}
+
+.seprator {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.seprator button {
+  padding: 14px;
+  width: 100%;
+  cursor: pointer;
+  color: var(--primary-color);
+  background: var(--secondary-background);
+  border: 2px solid var(--light-border-color);
+  border-radius: 10px;
+  font-size: 0.65rem;
+}
+.active {
+  border: 2px solid var(--active-light) !important;
+  background: #005abb70 !important;
+}
+/* 
+.cen {
+  display: flex;
+  align-items: center;
+} */
+
+.cen span {
+  color: var(--primary-color);
+}

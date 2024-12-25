@@ -33,7 +33,7 @@ const page = () => {
           </Link>
         </Button>
       </section>
-      <section className={styles.how_it_works}>
+      <section className={styles.how_it_works} id="how">
         <h2>How It Works?</h2>
         <div className={styles.steps}>
           <span className={styles.line}></span>
@@ -67,7 +67,7 @@ const page = () => {
           </div>
         </div>
       </section>
-      <section className={styles.features}>
+      <section className={styles.features} id="features">
         <h2>Features</h2>
         <div className={`${styles.features_con}`}>
           <div className={styles.features_box}>
