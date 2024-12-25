@@ -3,6 +3,7 @@ import styles from "@/styles/pages/Home.module.css";
 import Navbar from "@/layouts/Navbar";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import Footer from "@/layouts/Footer";
 
 const page = () => {
   return (
@@ -66,8 +67,45 @@ const page = () => {
           </div>
         </div>
       </section>
+      <section className={styles.features}>
+        <h2>Features</h2>
+        <div className={`${styles.features_con}`}>
+          <div className={styles.features_box}>
+            <h3>Easy Waste Uploading</h3>
+            <p>
+              Capture and upload a photo of your waste with a few simple clicks.
+              Our user-friendly interface ensures that you can quickly document
+              your waste, making the process effortless. Once uploaded, your
+              request will be sent to nearby businesses ready to collect it, so
+              you don’t have to worry about disposal.
+            </p>
+          </div>
 
-      <section className={styles.features}></section>
+          <div className={styles.features_box}>
+            <h3>Earn Rewards with Every Pickup</h3>
+            <p>
+              Every time a business picks up your waste, you earn coins that can
+              be accumulated and redeemed for various rewards. Whether it’s
+              discounts, services, or exclusive offers, you’re incentivized to
+              keep your environment clean while gaining valuable benefits in
+              return.
+            </p>
+          </div>
+
+          <div className={styles.features_box}>
+            <h3>Supporting Local Eco-Friendly Businesses</h3>
+            <p>
+              By using our app, you’re not only managing waste responsibly but
+              also helping nearby businesses that focus on sustainable
+              practices. These local businesses work to recycle, repurpose, or
+              dispose of waste in eco-friendly ways, contributing to a cleaner
+              environment and supporting a green economy.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 };

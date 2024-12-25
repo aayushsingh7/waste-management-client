@@ -40,3 +40,18 @@
   color: var(--primary-color);
   border-radius: 10px;
 }
+
+footer {
+  padding: 30px;
+  width: 100%;
+  margin-top: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #222222;
+}
+
+footer p {
+  font-size: 0.8rem;
+  color: var(--primary-color);
+}
