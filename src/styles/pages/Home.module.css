@@ -1,0 +1,116 @@
+.container {
+  /* height: 100dvh; */
+  background-color: var(--primary-background);
+}
+
+.hero_section,
+.how_it_works {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.steps {
+  width: 100%;
+  position: relative;
+  place-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  row-gap: 30px;
+  column-gap: 30px;
+  margin-bottom: 20px;
+}
+
+.how_it_works h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 60px;
+}
+
+.hero_section {
+  height: calc(100dvh - 100px);
+  background-image: url("/wave.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: bottom;
+}
+
+.hero_section h1 {
+  width: 80%;
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 3rem;
+}
+
+.hero_section h1 span,
+.features_div h2 span {
+  color: var(--active-background);
+  /* text-decoration: wavy; */
+}
+
+.hero_section p {
+  color: var(--secondary-color);
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+  margin-top: 40px;
+  width: 60%;
+}
+
+.how_it_works {
+  padding: 40px;
+  background: var(--secondary-background);
+}
+
+.step {
+  border: 2px solid var(--light-border-color);
+  /* padding: 15px; */
+  border-radius: 10px;
+  margin-bottom: 30px;
+  /* width: 400px; */
+}
+
+.step h3 {
+  color: var(--primary-color);
+  padding: 10px;
+  font-size: 0.7rem;
+  border-bottom: 2px solid var(--light-border-color);
+  background: #222222;
+}
+
+.step p {
+  color: var(--secondary-color);
+  font-size: 0.7rem;
+  padding: 10px;
+  line-height: 1.2rem;
+}
+
+.steps .step_span {
+  color: var(--primary-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--active-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.steps .line {
+  position: absolute;
+  height: 5px;
+  background: var(--active-background);
+  top: 50%;
+  width: 77%;
+}
+
+.features {
+  background: var(--primary-background);
+  background-image: url("/wave-reverse.svg");
+  background-repeat: no-repeat;
+  background-position: top;
+  padding: 40px;
+  height: 100dvh;
+  /* background: var(--primary-background); */
+}

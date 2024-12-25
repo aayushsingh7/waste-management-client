@@ -1,42 +1,42 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 * {
-  box-sizing: border-box;
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+:root {
+  --primary-background: #0e0e0e; /* Slightly darker for a modern feel */
+  --secondary-background: #1a1a1a; /* More contrast with the primary background */
+  --selected-dark-background: #101010; /* Balanced to blend well with primary and secondary */
+
+  --active-background: #005bbb; /* Muted blue for active state */
+  --active-light: #0077ff; /* Brighter for hover effects */
+  --highlight-background: #00ffff; /* Cyan for attention-grabbing elements */
+
+  --primary-color: #e0e0e0; /* Light gray for primary text */
+  --primary-color-light: #ffffff; /* Pure white for highlights */
+  --secondary-color: #a0a0a0; /* Softer gray for secondary text */
+
+  --dark-border-color: #3d3d3d; /* Less harsh for dark borders */
+  --medium-border-color: #2a2a2a; /* Subtle contrast for medium borders */
+  --light-border-color: #3d3d3d; /* Complementary to secondary background */
+
+  font-size: 25px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.button {
+  appearance: none;
+  border: 0px;
+  color: var(--primary-color);
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.input {
+  appearance: none;
+  border: none;
+  font-size: 17px;
+  color: var(--primary-color);
+  border-radius: 10px;
 }
