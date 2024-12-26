@@ -31,6 +31,7 @@
   border: 0px;
   color: var(--primary-color);
   border-radius: 10px;
+  cursor: pointer;
   font-size: 1rem;
 }
 
@@ -61,4 +62,32 @@ footer p {
 
 .input-border {
   border: 2px solid var(--light-border-color);
+}
+
+.page_con {
+  background: var(--secondary-background);
+}
+
+.dashboard_page {
+  background: var(--primary-background);
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  /* overflow: hidden; */
+  position: relative;
+}
+
+.dashboard_page h2 {
+  font-size: 1rem;
+  color: var(--primary-color);
+}
+
+.page_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 2px solid #222222;
 }

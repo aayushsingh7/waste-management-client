@@ -1,0 +1,79 @@
+.page {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  padding: 10px;
+  height: 100dvh;
+  border-right: 2px solid var(--light-border-color);
+  width: 280px;
+  flex-shrink: 0;
+  flex-direction: column;
+  position: static;
+  top: 0;
+  background: var(--primary-background);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  margin-bottom: 30px;
+  padding: 10px;
+  color: var(--primary-color);
+}
+
+.logo p {
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.logo svg {
+  color: var(--primary-color);
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.split_children {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+}
+
+.split_children ul {
+  list-style: none;
+}
+
+.split_children ul li {
+  width: 100%;
+  margin: 10px 0px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.split_children ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.split_children ul li a svg {
+  font-size: 25px;
+  margin-right: 20px;
+}
+
+.split_children ul li a span {
+  margin-top: 3px;
+  font-size: 0.7rem;
+}
+
+.split_children ul li:hover {
+  background: #222222;
+}
