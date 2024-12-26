@@ -81,6 +81,7 @@ footer p {
 
 .dashboard_page h2 {
   font-size: 1rem;
+  padding: 30px;
   color: var(--primary-color);
 }
 
@@ -88,6 +89,34 @@ footer p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
+  padding: 0px 30px 0px 0px;
   border-bottom: 2px solid #222222;
+}
+
+.filter {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 5px 25px;
+}
+
+.filter input {
+  appearance: none;
+  border: none;
+  background: none;
+  outline: none;
+  padding: 10px;
+  font-size: 0.7rem;
+  color: var(--primary-color);
+}
+
+.filter svg {
+  color: var(--secondary-color);
+  font-size: 25px;
+  margin-right: 15px;
+}
+
+.border_both {
+  border-top: 1px solid var(--light-border-color);
+  border-bottom: 1px solid var(--light-border-color);
 }

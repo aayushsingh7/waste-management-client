@@ -1,0 +1,75 @@
+.box {
+  display: flex;
+  width: fit-content;
+  min-width: 100%;
+  background: var(--primary-background);
+  border: 1px solid var(--secondary-background);
+  padding: 15px 30px;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 0.7rem;
+  cursor: pointer;
+  scale: 1;
+  transition: 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}
+
+.box:hover {
+  border: 1px solid var(--active-button-background);
+  scale: 0.98;
+  background: var(--selected-dark-background);
+}
+
+.box input {
+  margin-right: 20px;
+}
+
+.product_image {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--secondary-background);
+  margin-right: 20px;
+}
+
+.product_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.box h3 {
+  font-size: 0.6rem;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.feilds {
+  color: var(--secondary-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.feilds span {
+  padding: 5px;
+  font-size: 0.6rem;
+  width: 150px;
+  flex-shrink: 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+.box:hover .handler {
+  background: var(--selected-dark-background);
+}
+
+.handler {
+  background: var(--primary-background);
+}
+
+.handler {
+  transition: 0.2s ease-in-out;
+  transition-delay: 0.2s;
+}

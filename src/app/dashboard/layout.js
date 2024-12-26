@@ -28,7 +28,7 @@ const layout = ({ children }) => {
               </Link>
             </li>
             <li>
-              <Link href={"/dashboard/tran-history"}>
+              <Link href={"/dashboard/history"}>
                 <RiMoneyRupeeCircleLine style={{ fontSize: "24px" }} />
                 <span>Transaction History</span>
               </Link>
