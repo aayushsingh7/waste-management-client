@@ -120,3 +120,12 @@ footer p {
   border-top: 1px solid var(--light-border-color);
   border-bottom: 1px solid var(--light-border-color);
 }
+
+.grid_con {
+  display: grid;
+  margin-bottom: 20px;
+  row-gap: 10px;
+  column-gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 40px;
+}

@@ -1,0 +1,29 @@
+.box {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--light-border-color);
+  padding: 15px;
+}
+
+.box_image {
+  height: 200px;
+  width: 100%;
+}
+
+.box_image img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
+
+.box h5 {
+  color: var(--primary-color);
+  font-size: 0.7rem;
+}
+
+.box figcaption {
+  border-top: 2px solid var(--light-border-color);
+  /* margin-top: 10px; */
+  padding: 10px;
+}
