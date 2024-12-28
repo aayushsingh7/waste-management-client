@@ -1,9 +1,14 @@
 "use client";
+import { useAppContext } from "@/context/ContextAPI";
 import styles from "../styles/components/ProductBox.module.css";
 
 const ProductBox = ({ product }) => {
+  const { setViewRequest } = useAppContext();
   return (
-    <div className={`${styles.box} ${styles.border_both}`}>
+    <div
+      className={`${styles.box} ${styles.border_both}`}
+      onClick={() => setViewRequest(true)}
+    >
       <div
         style={{
           display: "flex",
@@ -18,7 +23,6 @@ const ProductBox = ({ product }) => {
         <div className={styles.product_image}>
           <img src={product.product_image} alt="" />
         </div>
-        <h3 style={{ width: "150px" }}>{product.product_name}</h3>
       </div>
 
       <div className={styles.feilds}>

@@ -3,13 +3,25 @@
 import Page from "@/components/Page";
 import Button from "@/components/ui/Button";
 import PageHeader from "@/layouts/PageHeader";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/pages/DashboardPage.module.css";
 import FiltersBar from "@/layouts/FiltersBar";
 import ProductBox from "@/components/ProductBox";
+import { useAppContext } from "@/context/ContextAPI";
+import { io } from "socket.io-client";
+import ViewRequest from "@/layouts/ViewRequest";
 
 const page = () => {
+  let socket;
+  useEffect(() => {
+    socket = io("http://localhost:4000/");
+    socket.on("connect", () => {
+      console.log("user is conntected");
+    });
+  }, []);
+
   const [loading, setLoading] = useState(false);
+  const { setCreateNew } = useAppContext();
   const products = [
     {
       product_image: "https://via.placeholder.com/150",
@@ -67,6 +79,7 @@ const page = () => {
     <Page>
       <PageHeader heading={"Pending Requests"}>
         <Button
+          onClick={() => setCreateNew(true)}
           style={{
             padding: "12px 15px",
             background: "var(--active-background)",
@@ -122,6 +135,7 @@ const page = () => {
           )}
         </section>
         {/* <ItemDetails /> */}
+        <ViewRequest />
       </div>
     </Page>
   );

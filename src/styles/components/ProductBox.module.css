@@ -3,7 +3,7 @@
   width: fit-content;
   min-width: 100%;
   background: var(--primary-background);
-  border: 1px solid var(--secondary-background);
+  border: 1px solid var(--light-border-color);
   padding: 15px 30px;
   align-items: center;
   justify-content: space-between;
@@ -11,13 +11,14 @@
   cursor: pointer;
   scale: 1;
   transition: 0.2s ease-in-out;
-  transition-delay: 0.2s;
+  transition-delay: 0.4s;
+  background: var(--primary-background);
 }
 
 .box:hover {
-  border: 1px solid var(--active-button-background);
-  scale: 0.98;
-  background: var(--selected-dark-background);
+  border: 1px solid var(--active-light);
+  /* scale: 0.98; */
+  background: var(--secondary-background);
 }
 
 .box input {
@@ -25,8 +26,8 @@
 }
 
 .product_image {
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   border-radius: 10px;
   overflow: hidden;
   background: var(--secondary-background);
@@ -62,7 +63,7 @@
 }
 
 .box:hover .handler {
-  background: var(--selected-dark-background);
+  background: var(--selected-background);
 }
 
 .handler {
@@ -71,5 +72,5 @@
 
 .handler {
   transition: 0.2s ease-in-out;
-  transition-delay: 0.2s;
+  transition-delay: 0.4s;
 }
