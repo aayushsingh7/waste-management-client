@@ -11,20 +11,23 @@ import ViewRequest from "@/layouts/ViewRequest";
 import { useAppContext } from "@/context/ContextAPI";
 
 const page = () => {
-  const { addData, requestHistory } = useAppContext();
+  const { addData, requestHistory, user } = useAppContext();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchRequestHistory();
-  }, []);
+    if (user._id) {
+      fetchRequestHistory();
+    }
+  }, [user._id]);
 
   const fetchRequestHistory = async () => {
     setLoading(true);
     try {
+      console.log("data is being fetched");
       const requests = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/products?${
           user.role == "seller" ? `sellerId=` : `buyerId=`
-        }${user._id}`,
+        }${user._id}&&status=completed`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -61,29 +64,29 @@ const page = () => {
               <input type="checkbox" />
               <div
                 className={styles.dis}
-                style={{ width: "270px", flexShrink: "0" }}
+                style={{ width: "150px", flexShrink: "0" }}
               ></div>
             </div>
             <div className={styles.feilds}>
-              <span>Stock (QTY)</span>
-              <span>FulFilled by</span>
+              <span>Request ID</span>
               <span>Status</span>
-              <span>Reserved Stock</span>
-              <span>WareHouse</span>
-              <span>Last Restocked</span>
+              <span>Seller Name</span>
+              <span>Seller Phone</span>
+              <span>Location</span>
             </div>
           </div>
           {loading ? (
-            <p style={{ color: "white", fontSize: "4rem" }}>
-              Loading Inventories
-            </p>
+            <div className="loading-template">
+              <div className="loader"></div>
+            </div>
+          ) : !loading && requestHistory.length === 0 ? (
+            <div className="empty-con">
+              <p>No Request Yet</p>
+            </div>
           ) : (
-            products?.map((product) => {
+            requestHistory?.map((data) => {
               return (
-                <ProductBox
-                  key={Math.random() * 8100000000}
-                  product={product}
-                />
+                <ProductBox key={Math.random() * 8100000000} data={data} />
               );
             })
           )}

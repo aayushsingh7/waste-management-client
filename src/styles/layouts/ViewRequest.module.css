@@ -16,6 +16,7 @@
   overflow-y: scroll;
   border-left: 2px solid var(--light-border-color);
   display: flex;
+  height: 100%;
   transition: 0.5s ease-in-out;
   background: var(--primary-background);
 }
@@ -31,6 +32,10 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid var(--light-border-color);
+}
+
+.header h4 {
+  color: var(--primary-color);
 }
 
 .details h6 {

@@ -10,7 +10,6 @@ import { useAppContext } from "@/context/ContextAPI";
 // import { useAppContext } from '@/context/AppContext'
 
 const LoginPage = ({}) => {
-  const { addData } = useAppContext();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [error, setError] = useState("");
@@ -47,7 +46,6 @@ const LoginPage = ({}) => {
       );
       let response = await loginUser.json();
       if (loginUser.status == 200) {
-        addData(true, "user", response.user);
         router.push("/dashboard");
       } else {
         setError(response.message);

@@ -7,17 +7,19 @@ import React, { useEffect } from "react";
 import { io } from "socket.io-client";
 
 const Page = ({ children }) => {
-  const { createNew, user, addData } = useAppContext();
+  const { createNew, user, addData, deleteData } = useAppContext();
 
   useEffect(() => {
     console.log("user");
     const socket = getSocket();
     socket.on("connect", () => {
-      console.log("user is conntected");
+      console.log("user is conntected", socket.id);
     });
-    socket.on("new_request_recieved", (req) => {
-      console.log(req);
+    socket.on("new_request_received", (req) => {
       addData(false, "pendingReq", req);
+    });
+    socket.on("transaction_completed_noti", (requestId) => {
+      deleteData("pendingReq", requestId);
     });
     socket.emit("user_connect", user._id);
     return () => {

@@ -26,7 +26,7 @@ const AddRequest = ({}) => {
     image: "",
     seller: user._id,
     name: "",
-    location: user.location,
+    locationTxt: user.locationTxt,
     description: user.description,
     items: [],
   });
@@ -64,7 +64,8 @@ const AddRequest = ({}) => {
             seller: user._id,
             name: requestDetails.name,
             description: requestDetails.description,
-            location: user.location,
+            locationTxt: user.locationTxt,
+            location: JSON.stringify(user.location),
             image: requestDetails.image,
             items: JSON.stringify(requestDetails.items),
           }),
@@ -75,7 +76,10 @@ const AddRequest = ({}) => {
       if (newRequest.status == 201) {
         console.log("new created");
         const socket = getSocket();
-        socket.emit("new_request", response.data);
+        socket.emit("new_request", response.data, [
+          response.data.seller._id,
+          response.data.buyer._id,
+        ]);
         // addData(false, "pendingReq", response.data);
       } else {
         window.alert("Cannot create new request, please try again later");
@@ -132,8 +136,8 @@ const AddRequest = ({}) => {
 
           <Input
             onChange={(e) => handleUserInput(e)}
-            name="location"
-            value={user.location}
+            name="locationTxt"
+            value={user.locationTxt}
             readOnly
             type="text"
             style={{

@@ -8,6 +8,7 @@ export function AppProvider({ children }) {
   const [user, setUser] = useState({});
   const [selectedRequest, setSelectedRequest] = useState({ items: [] });
   const [viewRequest, setViewRequest] = useState(false);
+  const [verifyingUser, setVerifyingUser] = useState(true);
   const [createNew, setCreateNew] = useState(false);
   const [pendingRequests, setPendingRequests] = useState([]);
   const [requestHistory, setRequestHistory] = useState([]);
@@ -50,6 +51,7 @@ export function AppProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
+        verifyingUser,
         selectedRequest,
         user,
         viewRequest,
@@ -61,6 +63,7 @@ export function AppProvider({ children }) {
         setViewRequest,
         addData,
         deleteData,
+        setVerifyingUser,
       }}
     >
       {children}

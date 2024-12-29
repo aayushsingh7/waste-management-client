@@ -3,15 +3,16 @@
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useAppContext } from "@/context/ContextAPI";
+import useLocation from "@/hooks/useLocation";
 import styles from "@/styles/pages/LoginAndRegister.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { useAppContext } from '@/context/AppContext'
 
 const RegisterPage = ({}) => {
+  const { location, err } = useLocation();
   const router = useRouter();
-  const { addData } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [seller, setSeller] = useState(true);
@@ -20,7 +21,7 @@ const RegisterPage = ({}) => {
     email: "",
     password: "",
     phoneNo: "",
-    location: "",
+    locationTxt: "",
   });
 
   const handleUserInput = (e) => {
@@ -29,6 +30,10 @@ const RegisterPage = ({}) => {
       return { ...data, [name]: e.target.value };
     });
   };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async () => {});
+  }, []);
 
   const register = async () => {
     setLoading(true);
@@ -47,13 +52,16 @@ const RegisterPage = ({}) => {
             password: userDetails.password,
             role: seller ? "seller" : "buyer",
             phoneNo: parseInt(userDetails.phoneNo),
-            location: userDetails.location,
+            locationTxt: userDetails.locationTxt,
+            location: {
+              latitude: location.latitude,
+              longitude: location.longitude,
+            },
           }),
         }
       );
       let response = await registerUser.json();
       if (registerUser.status === 201) {
-        addData(true, "user", response.user);
         router.push("/dashboard");
       } else {
         setError(response.message);
@@ -83,7 +91,7 @@ const RegisterPage = ({}) => {
           />
           <Input
             name="phoneNo"
-            type="email"
+            type="text"
             onChange={(e) => handleUserInput(e)}
             placeholder="Enter Your Phone No."
             border={true}
@@ -107,7 +115,7 @@ const RegisterPage = ({}) => {
           />
 
           <Input
-            name="location"
+            name="locationTxt"
             type="text"
             onChange={(e) => handleUserInput(e)}
             placeholder="Enter Your Location"

@@ -1,5 +1,7 @@
 "use client";
 
+import { useAppContext } from "@/context/ContextAPI";
+import VerifyUser from "@/layouts/VerifyUser";
 import styles from "@/styles/layouts/DashboardLayout.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,6 +13,7 @@ import { SiCashapp } from "react-icons/si";
 
 const layout = ({ children }) => {
   const router = useRouter();
+  const { verifyingUser } = useAppContext();
   return (
     <div className={styles.page}>
       {/* {createRecord && <AddRecord />} */}
@@ -59,6 +62,7 @@ const layout = ({ children }) => {
           </ul>
         </div>
       </nav>
+      {verifyingUser && <VerifyUser />}
       {children}
     </div>
   );

@@ -3,7 +3,7 @@ import { useAppContext } from "@/context/ContextAPI";
 import styles from "../styles/components/ProductBox.module.css";
 
 const ProductBox = ({ data }) => {
-  const { setViewRequest, setSelectedRequest, selectedRequest } =
+  const { setViewRequest, setSelectedRequest, selectedRequest, viewRequest } =
     useAppContext();
   return (
     <div
@@ -11,7 +11,7 @@ const ProductBox = ({ data }) => {
         selectedRequest._id == data._id ? styles.active : ""
       }`}
       onClick={() => {
-        setViewRequest(selectedRequest._id == data._id ? false : true);
+        setViewRequest(selectedRequest._id == data._id ? !viewRequest : true);
         setSelectedRequest(data);
       }}
     >
@@ -36,10 +36,10 @@ const ProductBox = ({ data }) => {
 
       <div className={styles.feilds}>
         <span>{data?._id}</span>
-        <span>{data?.status}</span>
+        <span className={`${data.status}`}>{data?.status}</span>
         <span>{data?.seller.username}</span>
         <span>{data?.seller.phoneNo}</span>
-        <span>{data?.location}</span>
+        <span>{data?.locationTxt}</span>
         {/* <span>{data.}</span> */}
       </div>
     </div>
