@@ -6,7 +6,7 @@ const AppContext = createContext();
 
 export function AppProvider({ children }) {
   const [user, setUser] = useState({});
-  const [selectedRequest, setSelectedRequest] = useState({});
+  const [selectedRequest, setSelectedRequest] = useState({ items: [] });
   const [viewRequest, setViewRequest] = useState(false);
   const [createNew, setCreateNew] = useState(false);
   const [pendingRequests, setPendingRequests] = useState([]);
@@ -27,6 +27,7 @@ export function AppProvider({ children }) {
       if (type == "user") {
         setUser(data);
       } else if (type == "pendingReq") {
+        console.log("inside set pending req", data);
         setPendingRequests(data);
       } else if (type == "requestHistory") {
         setRequestHistory(data);

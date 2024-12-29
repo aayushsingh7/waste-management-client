@@ -1,23 +1,26 @@
 "use client";
 
-import { FC, useState } from "react";
-import styles from "@/styles/pages/LoginAndRegister.module.css";
-import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import { useAppContext } from "@/context/ContextAPI";
+import styles from "@/styles/pages/LoginAndRegister.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 // import { useAppContext } from '@/context/AppContext'
-import { BiSolidInfoCircle } from "react-icons/bi";
 
 const RegisterPage = ({}) => {
   const router = useRouter();
+  const { addData } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [seller, setSeller] = useState(true);
   const [userDetails, setUserDetails] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
+    phoneNo: "",
+    location: "",
   });
 
   const handleUserInput = (e) => {
@@ -31,7 +34,7 @@ const RegisterPage = ({}) => {
     setLoading(true);
     try {
       const registerUser = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/register`,
+        `http://localhost:4000/api/v1/users/register`,
         {
           method: "POST",
           credentials: "include",
@@ -39,15 +42,18 @@ const RegisterPage = ({}) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            name: userDetails.name,
+            username: userDetails.username,
             email: userDetails.email,
             password: userDetails.password,
+            role: seller ? "seller" : "buyer",
+            phoneNo: parseInt(userDetails.phoneNo),
+            location: userDetails.location,
           }),
         }
       );
       let response = await registerUser.json();
       if (registerUser.status === 201) {
-        setUser(response.user);
+        addData(true, "user", response.user);
         router.push("/dashboard");
       } else {
         setError(response.message);
@@ -64,10 +70,22 @@ const RegisterPage = ({}) => {
         <h2>Register Now🎯</h2>
         <div className={styles.inputs}>
           <Input
-            name="name"
+            name="username"
             type="text"
             onChange={(e) => handleUserInput(e)}
-            placeholder="Enter Your Name"
+            placeholder="Enter Your Username"
+            border={true}
+            style={{
+              padding: "15px 20px",
+              marginTop: "10px",
+              background: "var(--secondary-background)",
+            }}
+          />
+          <Input
+            name="phoneNo"
+            type="email"
+            onChange={(e) => handleUserInput(e)}
+            placeholder="Enter Your Phone No."
             border={true}
             style={{
               padding: "15px 20px",
@@ -87,6 +105,20 @@ const RegisterPage = ({}) => {
               background: "var(--secondary-background)",
             }}
           />
+
+          <Input
+            name="location"
+            type="text"
+            onChange={(e) => handleUserInput(e)}
+            placeholder="Enter Your Location"
+            border={true}
+            style={{
+              padding: "15px 20px",
+              marginTop: "10px",
+              background: "var(--secondary-background)",
+            }}
+          />
+
           <Input
             name="password"
             type="password"

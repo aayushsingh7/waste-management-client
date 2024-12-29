@@ -8,18 +8,11 @@ import styles from "@/styles/pages/DashboardPage.module.css";
 import FiltersBar from "@/layouts/FiltersBar";
 import ProductBox from "@/components/ProductBox";
 import { useAppContext } from "@/context/ContextAPI";
-import { io } from "socket.io-client";
 import ViewRequest from "@/layouts/ViewRequest";
+import { getSocket } from "@/libs/socket";
 
 const page = () => {
-  let socket;
-  useEffect(() => {
-    socket = io("http://localhost:4000/");
-    socket.on("connect", () => {
-      console.log("user is conntected");
-    });
-  }, []);
-
+  const { addData, pendingRequests, user } = useAppContext();
   const [loading, setLoading] = useState(false);
   const { setCreateNew } = useAppContext();
   const products = [
@@ -75,19 +68,49 @@ const page = () => {
     },
   ];
 
+  useEffect(() => {
+    fetchPendingRequests();
+  }, []);
+
+  const fetchPendingRequests = async () => {
+    setLoading(true);
+    try {
+      const requests = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/products?${
+          user.role != "seller" ? `sellerId=` : `buyerId=`
+        }676fcc54a0d64a0147061365&&status="pending`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
+      );
+      const response = await requests.json();
+      if (requests.status == 200) {
+        console.log(response);
+        addData(true, "pendingReq", response.products);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
+  };
+
   return (
     <Page>
       <PageHeader heading={"Pending Requests"}>
-        <Button
-          onClick={() => setCreateNew(true)}
-          style={{
-            padding: "12px 15px",
-            background: "var(--active-background)",
-            fontSize: "0.75rem",
-          }}
-        >
-          Create New Request
-        </Button>
+        {user.role == "seller" && (
+          <Button
+            onClick={() => setCreateNew(true)}
+            style={{
+              padding: "12px 15px",
+              background: "var(--active-background)",
+              fontSize: "0.75rem",
+            }}
+          >
+            Create New Request
+          </Button>
+        )}
       </PageHeader>
 
       <FiltersBar />
@@ -107,29 +130,24 @@ const page = () => {
               <input type="checkbox" />
               <div
                 className={styles.dis}
-                style={{ width: "270px", flexShrink: "0" }}
+                style={{ width: "150px", flexShrink: "0" }}
               ></div>
             </div>
             <div className={styles.feilds}>
-              <span>Stock (QTY)</span>
-              <span>FulFilled by</span>
+              <span>Request ID</span>
               <span>Status</span>
-              <span>Reserved Stock</span>
-              <span>WareHouse</span>
-              <span>Last Restocked</span>
+              <span>Seller Name</span>
+              <span>Seller Phone</span>
+              <span>Location</span>
             </div>
           </div>
           {loading ? (
-            <p style={{ color: "white", fontSize: "4rem" }}>
-              Loading Inventories
-            </p>
+            <p style={{ color: "white", fontSize: "4rem" }}>Loading Requests</p>
           ) : (
-            products?.map((product) => {
+            pendingRequests?.map((data) => {
+              console.log("pending req,", data);
               return (
-                <ProductBox
-                  key={Math.random() * 8100000000}
-                  product={product}
-                />
+                <ProductBox key={Math.random() * 8100000000} data={data} />
               );
             })
           )}

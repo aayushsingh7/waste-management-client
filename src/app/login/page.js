@@ -6,9 +6,11 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "@/context/ContextAPI";
 // import { useAppContext } from '@/context/AppContext'
 
 const LoginPage = ({}) => {
+  const { addData } = useAppContext();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [error, setError] = useState("");
@@ -27,11 +29,12 @@ const LoginPage = ({}) => {
   const login = async () => {
     setLoading(true);
     setError("");
+
     try {
       const loginUser = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/login`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/login`,
         {
-          method: "POST",
+          method: "PUT",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
@@ -44,7 +47,7 @@ const LoginPage = ({}) => {
       );
       let response = await loginUser.json();
       if (loginUser.status == 200) {
-        setUser(response.user);
+        addData(true, "user", response.user);
         router.push("/dashboard");
       } else {
         setError(response.message);

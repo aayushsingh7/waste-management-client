@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useAppContext } from "@/context/ContextAPI";
+import { getSocket } from "@/libs/socket";
 import styles from "@/styles/layouts/AddRequest.module.css";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
@@ -13,21 +14,72 @@ function getMonthEndDate() {
 }
 
 const AddRequest = ({}) => {
-  const { setCreateNew } = useAppContext();
+  const { setCreateNew, user } = useAppContext();
   const [loading, setLoading] = useState(false);
-  const [requestDetails, setRequestDetails] = useState({});
+  const [newItem, setNewItem] = useState({
+    name: "",
+    qty: "",
+  });
+
+  const [requestDetails, setRequestDetails] = useState({
+    status: "pending",
+    image: "",
+    seller: user._id,
+    name: "",
+    location: user.location,
+    description: user.description,
+    items: [],
+  });
+
+  const addNewItem = () => {
+    setRequestDetails((oldData) => {
+      return {
+        ...oldData,
+        items: [newItem, ...oldData.items],
+      };
+    });
+    setNewItem({
+      name: "",
+      qty: "",
+    });
+  };
 
   const handleUserInput = (e) => {
     let name = e.target.name;
     console.log(e.target.value);
-    setRecordDetails((oldDetails) => {
+    setRequestDetails((oldDetails) => {
       return { ...oldDetails, [name]: e.target.value };
     });
   };
 
-  const craeteNewRecord = async () => {
+  const createNewRequest = async () => {
     setLoading(true);
     try {
+      const newRequest = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/products/create`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            seller: user._id,
+            name: requestDetails.name,
+            description: requestDetails.description,
+            location: user.location,
+            image: requestDetails.image,
+            items: JSON.stringify(requestDetails.items),
+          }),
+          credentials: "include",
+        }
+      );
+      const response = await newRequest.json();
+      if (newRequest.status == 201) {
+        console.log("new created");
+        const socket = getSocket();
+        socket.emit("new_request", response.data);
+        // addData(false, "pendingReq", response.data);
+      } else {
+        window.alert("Cannot create new request, please try again later");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -50,9 +102,9 @@ const AddRequest = ({}) => {
         <div className={styles.inputs_container}>
           <Input
             onChange={(e) => handleUserInput(e)}
-            name="title"
+            name="name"
             type="text"
-            placeholder="Enter Title"
+            placeholder="Enter Title (if any)"
             style={{
               background: "#222222",
               borderRadius: "10px",
@@ -62,10 +114,105 @@ const AddRequest = ({}) => {
               padding: "15px",
             }}
           />
+
+          <Input
+            onChange={(e) => handleUserInput(e)}
+            name="description"
+            type="text"
+            placeholder="Enter A Short Description (if any)"
+            style={{
+              background: "#222222",
+              borderRadius: "10px",
+              width: "100%",
+              fontSize: "0.7rem",
+              marginBottom: "15px",
+              padding: "15px",
+            }}
+          />
+
+          <Input
+            onChange={(e) => handleUserInput(e)}
+            name="location"
+            value={user.location}
+            readOnly
+            type="text"
+            style={{
+              background: "#222222",
+              borderRadius: "10px",
+              width: "100%",
+              fontSize: "0.7rem",
+              marginBottom: "15px",
+              padding: "15px",
+            }}
+          />
+
+          <div className={styles.addItem}>
+            <div className={styles.inputs}>
+              <Input
+                onChange={(e) =>
+                  setNewItem({ name: e.target.value, qty: newItem.qty })
+                }
+                name="name"
+                value={newItem.name}
+                type="text"
+                placeholder="Item Name"
+                style={{
+                  background: "#222222",
+                  borderRadius: "10px",
+                  width: "100%",
+                  fontSize: "0.7rem",
+                  marginBottom: "15px",
+                  padding: "15px",
+                }}
+              />
+              <Input
+                onChange={(e) =>
+                  setNewItem({ name: newItem.name, qty: e.target.value })
+                }
+                name="qty"
+                value={newItem.qty}
+                type="text"
+                placeholder="Item Qty (approx)"
+                style={{
+                  background: "#222222",
+                  borderRadius: "10px",
+                  width: "100%",
+                  fontSize: "0.7rem",
+                  marginBottom: "15px",
+                  padding: "15px",
+                }}
+              />
+              <Button
+                disabled={loading}
+                onClick={addNewItem}
+                style={{
+                  padding: "15px",
+                  height: "50px",
+                  background: "var(--active-background)",
+                  fontSize: "0.7rem",
+                  borderRadius: "10px",
+                  flexShrink: "0",
+                }}
+              >
+                Add Item
+              </Button>
+            </div>
+            {requestDetails.items.map((item) => {
+              return (
+                <div key={Math.random() * 10000000} className={styles.items}>
+                  <span>{item.name}</span>
+                  <span>{item.qty}</span>
+                  <AiOutlineClose
+                    style={{ color: "var(--primary-color)", fontSize: "23px" }}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
         <Button
           disabled={loading}
-          onClick={craeteNewRecord}
+          onClick={createNewRequest}
           style={{
             padding: "20px",
             background: "var(--active-background)",

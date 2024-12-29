@@ -5,7 +5,7 @@ import { useAppContext } from "@/context/ContextAPI";
 import styles from "../styles/layouts/ViewRequest.module.css";
 
 const ViewRequest = ({}) => {
-  const { viewRequest } = useAppContext();
+  const { viewRequest, selectedRequest } = useAppContext();
 
   return (
     <section
@@ -51,18 +51,23 @@ const ViewRequest = ({}) => {
           <table>
             <tbody>
               <tr>
+                <td>Request ID</td>
+                <td>{selectedRequest?._id}</td>
+              </tr>
+
+              <tr>
                 <td>Username</td>
-                <td>aayush</td>
+                <td>{selectedRequest?.seller?.username}</td>
               </tr>
 
               <tr>
                 <td>Phone no</td>
-                <td>9304894933</td>
+                <td>{selectedRequest?.seller?.phoneNo}</td>
               </tr>
 
               <tr>
                 <td>Address</td>
-                <td>Nurising vihar colony, strret no 2, katulboard</td>
+                <td>{selectedRequest?.location}</td>
               </tr>
             </tbody>
           </table>
@@ -72,20 +77,14 @@ const ViewRequest = ({}) => {
           <h6>Waste Details</h6>
           <table>
             <tbody>
-              <tr>
-                <td>Metal Tin</td>
-                <td>4</td>
-              </tr>
-
-              <tr>
-                <td>News Paper</td>
-                <td>1.4kg approx</td>
-              </tr>
-
-              <tr>
-                <td>Cloths</td>
-                <td>1kg apporox</td>
-              </tr>
+              {selectedRequest.items.map((item) => {
+                return (
+                  <tr key={Math.random() * 10000000000}>
+                    <td>{item.name}</td>
+                    <td>{item.qty}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

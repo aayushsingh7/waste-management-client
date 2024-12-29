@@ -2,12 +2,18 @@
 import { useAppContext } from "@/context/ContextAPI";
 import styles from "../styles/components/ProductBox.module.css";
 
-const ProductBox = ({ product }) => {
-  const { setViewRequest } = useAppContext();
+const ProductBox = ({ data }) => {
+  const { setViewRequest, setSelectedRequest, selectedRequest } =
+    useAppContext();
   return (
     <div
-      className={`${styles.box} ${styles.border_both}`}
-      onClick={() => setViewRequest(true)}
+      className={`${styles.box} ${styles.border_both} ${
+        selectedRequest._id == data._id ? styles.active : ""
+      }`}
+      onClick={() => {
+        setViewRequest(selectedRequest._id == data._id ? false : true);
+        setSelectedRequest(data);
+      }}
     >
       <div
         style={{
@@ -21,17 +27,20 @@ const ProductBox = ({ product }) => {
       >
         <input type="checkbox" />
         <div className={styles.product_image}>
-          <img src={product.product_image} alt="" />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s"
+            alt=""
+          />
         </div>
       </div>
 
       <div className={styles.feilds}>
-        <span>{product.available_stock}</span>
-        <span>{product.fulfilled_by}</span>
-        <span>{product.status}</span>
-        <span>{product.reserved_stock}</span>
-        <span>{product.warehouse_location}</span>
-        <span>{`${product.last_restocked_at}`}</span>
+        <span>{data?._id}</span>
+        <span>{data?.status}</span>
+        <span>{data?.seller.username}</span>
+        <span>{data?.seller.phoneNo}</span>
+        <span>{data?.location}</span>
+        {/* <span>{data.}</span> */}
       </div>
     </div>
   );

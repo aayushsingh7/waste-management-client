@@ -84,3 +84,31 @@
   color: #ff0000;
   border: 2px solid #ff0000;
 }
+
+.addItem {
+}
+
+.inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.items {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  border: 2px solid var(--light-border-color);
+}
+
+.items span {
+  font-size: 17px;
+  color: var(--secondary-color);
+  width: 50%;
+}
+
+.items svg {
+  cursor: pointer;
+}

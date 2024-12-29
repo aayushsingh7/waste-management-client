@@ -15,9 +15,13 @@
   background: var(--primary-background);
 }
 
+.active {
+  background: var(--secondary-background) !important;
+  border: 1px solid var(--active-light) !important;
+}
+
 .box:hover {
   border: 1px solid var(--active-light);
-  /* scale: 0.98; */
   background: var(--secondary-background);
 }
 
@@ -30,14 +34,13 @@
   height: 100px;
   border-radius: 10px;
   overflow: hidden;
-  background: var(--secondary-background);
   margin-right: 20px;
 }
 
 .product_image img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .box h3 {
@@ -54,15 +57,17 @@
 }
 
 .feilds span {
-  padding: 5px;
+  padding: 10px;
   font-size: 0.6rem;
-  width: 150px;
+  width: 200px;
   flex-shrink: 0;
   text-align: center;
+  word-break: break-all;
   font-weight: 500;
+  border-left: 1px solid var(--light-border-color);
 }
 
-.box:hover .handler {
+/* .box:hover .handler {
   background: var(--selected-background);
 }
 
@@ -73,4 +78,4 @@
 .handler {
   transition: 0.2s ease-in-out;
   transition-delay: 0.4s;
-}
+} */
