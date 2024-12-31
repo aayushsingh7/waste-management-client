@@ -1,14 +1,14 @@
 "use client";
 
 import Page from "@/components/Page";
-import Button from "@/components/ui/Button";
-import PageHeader from "@/layouts/PageHeader";
-import React, { useEffect, useState } from "react";
-import styles from "@/styles/pages/DashboardPage.module.css";
 import ProductBox from "@/components/ProductBox";
-import FiltersBar from "@/layouts/FiltersBar";
-import ViewRequest from "@/layouts/ViewRequest";
 import { useAppContext } from "@/context/ContextAPI";
+import FiltersBar from "@/layouts/FiltersBar";
+import PageHeader from "@/layouts/PageHeader";
+import ViewRequest from "@/layouts/ViewRequest";
+import Notification from "@/libs/notification";
+import styles from "@/styles/pages/DashboardPage.module.css";
+import { useEffect, useState } from "react";
 
 const page = () => {
   const { addData, requestHistory, user } = useAppContext();
@@ -23,7 +23,6 @@ const page = () => {
   const fetchRequestHistory = async () => {
     setLoading(true);
     try {
-      console.log("data is being fetched");
       const requests = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/products?${
           user.role == "seller" ? `sellerId=` : `buyerId=`
@@ -39,7 +38,7 @@ const page = () => {
         addData(true, "requestHistory", response.products);
       }
     } catch (err) {
-      console.log(err);
+      Notification.error("Oops! something went wrong, try again later");
     }
     setLoading(false);
   };
@@ -70,8 +69,8 @@ const page = () => {
             <div className={styles.feilds}>
               <span>Request ID</span>
               <span>Status</span>
-              <span>Seller Name</span>
-              <span>Seller Phone</span>
+              <span>{user.role == "seller" ? "Buyer" : "Seller"} Name</span>
+              <span>{user.role == "seller" ? "Buyer" : "Seller"} Phone</span>
               <span>Location</span>
             </div>
           </div>

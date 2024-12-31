@@ -7,8 +7,10 @@
 }
 
 .box_image {
-  height: 200px;
+  height: 150px;
   width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .box_image img {

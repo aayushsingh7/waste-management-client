@@ -1,11 +1,12 @@
 "use client";
 
 import Button from "@/components/ui/Button";
-import { useAppContext } from "@/context/ContextAPI";
-import styles from "../styles/layouts/ViewRequest.module.css";
-import { useState } from "react";
 import Input from "@/components/ui/Input";
+import { useAppContext } from "@/context/ContextAPI";
+import Notification from "@/libs/notification";
 import { getSocket } from "@/libs/socket";
+import { useState } from "react";
+import styles from "../styles/layouts/ViewRequest.module.css";
 
 const ViewRequest = ({}) => {
   const {
@@ -13,6 +14,7 @@ const ViewRequest = ({}) => {
     selectedRequest,
     user,
     setViewRequest,
+    deleteData,
     setSelectedRequest,
   } = useAppContext();
   const [finalPrice, setFinalPrice] = useState(0);
@@ -40,9 +42,39 @@ const ViewRequest = ({}) => {
         setSelectedRequest({ items: [] });
       }
     } catch (err) {
-      console.log(err);
+      Notification.error(
+        "Cannot complete request at this moment, try again later"
+      );
     }
     setLoading(false);
+  };
+
+  const cancleRequest = async () => {
+    try {
+      const cancle = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/products/cancle?buyerId=${user._id}&productId=${selectedRequest._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
+      );
+      let data = await cancle.json();
+      if (cancle.status == 200) {
+        let socket = getSocket();
+        socket.emit("new_request", data.response.product, [
+          data.response.product.seller._id,
+          data.response.product.buyer._id,
+        ]);
+        deleteData("pendingReq", data.response.product._id);
+        Notification.success("Request cancelled successfully");
+        setViewRequest(false);
+      }
+    } catch (err) {
+      Notification.error(
+        "Cannot cancle request at this moment, try again later"
+      );
+    }
   };
 
   return (
@@ -166,6 +198,19 @@ const ViewRequest = ({}) => {
               }}
             >
               {loading ? "Please wait..." : "Request Completed"}
+            </Button>
+            <Button
+              onClick={cancleRequest}
+              disabled={loading}
+              style={{
+                padding: "15px",
+                width: "100%",
+                fontSize: "0.8rem",
+                marginTop: "20px",
+                background: "#910a0a",
+              }}
+            >
+              {loading ? "Please wait..." : "Cancle Request"}
             </Button>
           </div>
         )}

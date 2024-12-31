@@ -17,7 +17,18 @@ export function AppProvider({ children }) {
     if (!isNew) {
       if (type == "pendingReq") {
         setPendingRequests((oldData) => {
-          return [data, ...oldData];
+          let isExists = oldData.find((d) => d._id == data._id);
+          if (isExists) {
+            return oldData.map((d) => {
+              if (d._id == data._id) {
+                return data;
+              } else {
+                return d;
+              }
+            });
+          } else {
+            return [data, ...oldData];
+          }
         });
       } else if (type == "requestHistory") {
         setRequestHistory((oldData) => {
@@ -28,7 +39,6 @@ export function AppProvider({ children }) {
       if (type == "user") {
         setUser(data);
       } else if (type == "pendingReq") {
-        console.log("inside set pending req", data);
         setPendingRequests(data);
       } else if (type == "requestHistory") {
         setRequestHistory(data);
@@ -48,6 +58,21 @@ export function AppProvider({ children }) {
     }
   };
 
+  const changeSeller = (buyer, productId) => {
+    setPendingRequests((oldData) => {
+      return oldData.map((data) => {
+        if (data._id == productId) {
+          return {
+            ...data,
+            buyer: buyer,
+          };
+        } else {
+          return data;
+        }
+      });
+    });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -64,6 +89,7 @@ export function AppProvider({ children }) {
         addData,
         deleteData,
         setVerifyingUser,
+        changeSeller,
       }}
     >
       {children}

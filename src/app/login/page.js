@@ -1,16 +1,18 @@
 "use client";
 
-import { FC, useState } from "react";
-import styles from "@/styles/pages/LoginAndRegister.module.css";
-import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import { useAppContext } from "@/context/ContextAPI";
+import Notification from "@/libs/notification";
+import styles from "@/styles/pages/LoginAndRegister.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAppContext } from "@/context/ContextAPI";
+import { useState } from "react";
 // import { useAppContext } from '@/context/AppContext'
 
 const LoginPage = ({}) => {
   const [loading, setLoading] = useState(false);
+  const { setVerifyingUser } = useAppContext();
   const router = useRouter();
   const [error, setError] = useState("");
   const [userDetails, setUserDetails] = useState({
@@ -47,12 +49,12 @@ const LoginPage = ({}) => {
       let response = await loginUser.json();
       if (loginUser.status == 200) {
         router.push("/dashboard");
+        setVerifyingUser(true);
       } else {
         setError(response.message);
       }
     } catch (err) {
-      console.log(err);
-      setError(err.message);
+      Notification.error("Oops! something went wrong, try again later");
     }
     setLoading(false);
   };

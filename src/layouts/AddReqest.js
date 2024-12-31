@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useAppContext } from "@/context/ContextAPI";
+import Notification from "@/libs/notification";
 import { getSocket } from "@/libs/socket";
 import styles from "@/styles/layouts/AddRequest.module.css";
 import { useState } from "react";
@@ -46,7 +47,6 @@ const AddRequest = ({}) => {
 
   const handleUserInput = (e) => {
     let name = e.target.name;
-    console.log(e.target.value);
     setRequestDetails((oldDetails) => {
       return { ...oldDetails, [name]: e.target.value };
     });
@@ -74,18 +74,19 @@ const AddRequest = ({}) => {
       );
       const response = await newRequest.json();
       if (newRequest.status == 201) {
-        console.log("new created");
         const socket = getSocket();
         socket.emit("new_request", response.data, [
           response.data.seller._id,
           response.data.buyer._id,
         ]);
+        Notification.success("New request added successfully.");
+        setCreateNew(false);
         // addData(false, "pendingReq", response.data);
       } else {
-        window.alert("Cannot create new request, please try again later");
+        Notification.error("Somthing went wrong, try again.");
       }
     } catch (err) {
-      console.log(err);
+      Notification.error("Somthing went wrong, try again later.");
     }
     setLoading(false);
   };

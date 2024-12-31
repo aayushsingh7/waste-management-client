@@ -13,7 +13,7 @@ import { SiCashapp } from "react-icons/si";
 
 const layout = ({ children }) => {
   const router = useRouter();
-  const { verifyingUser } = useAppContext();
+  const { verifyingUser, user } = useAppContext();
   return (
     <div className={styles.page}>
       {/* {createRecord && <AddRecord />} */}
@@ -37,12 +37,14 @@ const layout = ({ children }) => {
               </Link>
             </li>
 
-            <li>
-              <Link href={"/dashboard/redeem"}>
-                <GoGift style={{ fontSize: "22px" }} />
-                <span>Redeem Rewards</span>
-              </Link>
-            </li>
+            {user && user.role !== "buyer" ? (
+              <li>
+                <Link href={"/dashboard/redeem"}>
+                  <GoGift style={{ fontSize: "22px" }} />
+                  <span>Redeem Rewards</span>
+                </Link>
+              </li>
+            ) : null}
           </ul>
 
           <ul>

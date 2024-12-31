@@ -1,10 +1,13 @@
 "use client";
 
 import { useAppContext } from "@/context/ContextAPI";
-import React, { useEffect } from "react";
+import Notification from "@/libs/notification";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const VerifyUser = () => {
   const { setVerifyingUser, addData } = useAppContext();
+  const router = useRouter();
   useEffect(() => {
     authenticateUser();
   }, []);
@@ -23,9 +26,12 @@ const VerifyUser = () => {
       if (user.status == 200) {
         addData(true, "user", userData.user);
         setVerifyingUser(false);
+      } else {
+        setVerifyingUser(false);
+        router.push("/login");
       }
     } catch (err) {
-      console.log(err);
+      Notification.error("Oops! something went wrong, try again later");
     }
   };
 

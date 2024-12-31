@@ -3,8 +3,13 @@ import { useAppContext } from "@/context/ContextAPI";
 import styles from "../styles/components/ProductBox.module.css";
 
 const ProductBox = ({ data }) => {
-  const { setViewRequest, setSelectedRequest, selectedRequest, viewRequest } =
-    useAppContext();
+  const {
+    setViewRequest,
+    setSelectedRequest,
+    selectedRequest,
+    viewRequest,
+    user,
+  } = useAppContext();
   return (
     <div
       className={`${styles.box} ${styles.border_both} ${
@@ -37,9 +42,19 @@ const ProductBox = ({ data }) => {
       <div className={styles.feilds}>
         <span>{data?._id}</span>
         <span className={`${data.status}`}>{data?.status}</span>
-        <span>{data?.seller.username}</span>
-        <span>{data?.seller.phoneNo}</span>
-        <span>{data?.locationTxt}</span>
+        <span>
+          {data[user.role == "seller" ? "buyer" : "seller"]?.username ||
+            "Not assigned"}
+        </span>
+        <span>
+          {data[user.role == "seller" ? "buyer" : "seller"]?.phoneNo ||
+            "Not assigned"}
+        </span>
+        <span>
+          {data[user.role == "seller" ? "buyer" : "seller"]?.locationTxt ||
+            "Not assigned"}
+        </span>
+
         {/* <span>{data.}</span> */}
       </div>
     </div>

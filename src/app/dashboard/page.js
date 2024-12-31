@@ -1,15 +1,15 @@
 "use client";
 
 import Page from "@/components/Page";
-import Button from "@/components/ui/Button";
-import PageHeader from "@/layouts/PageHeader";
-import React, { useEffect, useState } from "react";
-import styles from "@/styles/pages/DashboardPage.module.css";
-import FiltersBar from "@/layouts/FiltersBar";
 import ProductBox from "@/components/ProductBox";
+import Button from "@/components/ui/Button";
 import { useAppContext } from "@/context/ContextAPI";
+import FiltersBar from "@/layouts/FiltersBar";
+import PageHeader from "@/layouts/PageHeader";
 import ViewRequest from "@/layouts/ViewRequest";
-import { getSocket } from "@/libs/socket";
+import Notification from "@/libs/notification";
+import styles from "@/styles/pages/DashboardPage.module.css";
+import { useEffect, useState } from "react";
 
 const page = () => {
   const { addData, pendingRequests, user } = useAppContext();
@@ -39,7 +39,7 @@ const page = () => {
         addData(true, "pendingReq", response.products);
       }
     } catch (err) {
-      console.log(err);
+      Notification.error("Oops! something went wrong, try again later");
     }
     setLoading(false);
   };
@@ -87,8 +87,8 @@ const page = () => {
             <div className={styles.feilds}>
               <span>Request ID</span>
               <span>Status</span>
-              <span>Seller Name</span>
-              <span>Seller Phone</span>
+              <span>{user.role == "seller" ? "Buyer" : "Seller"} Name</span>
+              <span>{user.role == "seller" ? "Buyer" : "Seller"} Phone</span>
               <span>Location</span>
             </div>
           </div>

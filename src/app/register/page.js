@@ -4,14 +4,15 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { useAppContext } from "@/context/ContextAPI";
 import useLocation from "@/hooks/useLocation";
+import Notification from "@/libs/notification";
 import styles from "@/styles/pages/LoginAndRegister.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-// import { useAppContext } from '@/context/AppContext'
 
 const RegisterPage = ({}) => {
   const { location, err } = useLocation();
+  const { setVerifyingUser } = useAppContext();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -62,13 +63,13 @@ const RegisterPage = ({}) => {
       );
       let response = await registerUser.json();
       if (registerUser.status === 201) {
+        setVerifyingUser(true);
         router.push("/dashboard");
       } else {
         setError(response.message);
       }
     } catch (err) {
-      console.log(err);
-      setError(err.message);
+      Notification.error("Oops! something went wrong, try again later");
     }
     setLoading(false);
   };
