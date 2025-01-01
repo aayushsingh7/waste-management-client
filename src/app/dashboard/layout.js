@@ -25,7 +25,7 @@ const layout = ({ children }) => {
       >
         <div className={styles.logo}>
           {/* <SiCashapp /> */}
-          <p>FinSphere</p>
+          <p>EarnMore</p>
           <Button
             onClick={() => setShowNavbar(false)}
             style={{

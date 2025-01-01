@@ -4,7 +4,7 @@ import { useAppContext } from "@/context/ContextAPI";
 import Notification from "@/libs/notification";
 import { getSocket } from "@/libs/socket";
 import styles from "@/styles/layouts/AddRequest.module.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
 function getMonthEndDate() {
@@ -17,6 +17,9 @@ function getMonthEndDate() {
 const AddRequest = ({}) => {
   const { setCreateNew, user } = useAppContext();
   const [loading, setLoading] = useState(false);
+  const [imageDataURL, setImageDataURL] = useState("");
+  const inputRef = useRef(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [newItem, setNewItem] = useState({
     name: "",
     qty: "",
@@ -53,6 +56,7 @@ const AddRequest = ({}) => {
   };
 
   const createNewRequest = async () => {
+    console.log({ imageDataURL });
     setLoading(true);
     try {
       const newRequest = await fetch(
@@ -66,7 +70,7 @@ const AddRequest = ({}) => {
             description: requestDetails.description,
             locationTxt: user.locationTxt,
             location: JSON.stringify(user.location),
-            image: requestDetails.image,
+            image: imageDataURL,
             items: JSON.stringify(requestDetails.items),
           }),
           credentials: "include",
@@ -91,6 +95,28 @@ const AddRequest = ({}) => {
     setLoading(false);
   };
 
+  const handleFilePreivew = (file) => {
+    const fileUrl = URL.createObjectURL(file);
+    setImagePreview(fileUrl);
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    handleFilePreivew(file);
+    try {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const dataURL = reader.result;
+        setImageDataURL(dataURL);
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      dispatch(setIsError(true));
+    }
+  };
+
   return (
     <div className={styles.rgb_container}>
       <div className={styles.add_record}>
@@ -105,6 +131,21 @@ const AddRequest = ({}) => {
           </Button>
         </div>
         <div className={styles.inputs_container}>
+          <div className={styles.upload_image}>
+            <div
+              className={styles.image}
+              onClick={() => inputRef.current?.click()}
+            >
+              <img src={imagePreview} alt="" />
+              <Input
+                accept="image/*"
+                type="file"
+                style={{ display: "none" }}
+                ref={inputRef}
+                onChange={handleFileUpload}
+              />
+            </div>
+          </div>
           <Input
             onChange={(e) => handleUserInput(e)}
             name="name"

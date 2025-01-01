@@ -50,12 +50,11 @@ const RewardPage = () => {
             color: "var(--primary-color)",
             display: "flex",
             justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <span>
-            <TbCoinMoneroFilled
-              style={{ color: "yellow", fontSize: "25px", marginRight: "10px" }}
-            />
+            <TbCoinMoneroFilled style={{ color: "yellow", fontSize: "23px" }} />
           </span>
           {Math.floor(user.coins).toLocaleString()}
         </p>

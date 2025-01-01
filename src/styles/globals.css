@@ -266,9 +266,12 @@ footer p {
   background: #222222 !important;
 }
 
+.page_header h2 span {
+  display: none;
+}
+
 .page_header span {
   margin-right: 10px;
-  display: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -297,15 +300,22 @@ footer p {
   .dashboard_page h2 {
     padding: 20px;
   }
-  .page_header span {
+  .page_header h2 span {
     display: flex;
   }
   :root {
     font-size: 20px;
   }
+  .grid_con {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 700px) {
+  .grid_con {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 20px;
+  }
   :root {
     font-size: 16px;
   }
@@ -314,5 +324,8 @@ footer p {
 @media (max-width: 499px) {
   :root {
     font-size: 16px;
+  }
+  .grid_con {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }

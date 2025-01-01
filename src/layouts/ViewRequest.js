@@ -111,10 +111,7 @@ const ViewRequest = ({}) => {
         </div>
 
         <div className={styles.image}>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s"
-            alt=""
-          />
+          <img src={selectedRequest.image} alt="" />
         </div>
 
         <div className={styles.details}>
@@ -130,6 +127,11 @@ const ViewRequest = ({}) => {
               <tr>
                 <td>Phone no</td>
                 <td>{selectedRequest?.buyer?.phoneNo}</td>
+              </tr>
+
+              <tr>
+                <td>Address</td>
+                <td>{selectedRequest?.buyer?.locationTxt}</td>
               </tr>
             </tbody>
           </table>

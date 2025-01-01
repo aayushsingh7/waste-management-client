@@ -33,10 +33,7 @@ const ProductBox = ({ data }) => {
       >
         <input type="checkbox" />
         <div className={styles.product_image}>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-C_UAhXq9GfuGO452EEzfbKnh1viQB9EDBQ&s"
-            alt=""
-          />
+          <img src={data.image} alt="" />
         </div>
       </div>
 

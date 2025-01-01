@@ -26,7 +26,7 @@ const Navbar = ({}) => {
             <span onClick={() => setShowHomeNavbar(!showHomeNavbar)}>
               <IoIosMenu />
             </span>
-            <p>FinSphere</p>
+            <p>EarnMore</p>
           </div>
 
           {showHomeNavbar && (

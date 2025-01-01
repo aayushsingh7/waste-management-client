@@ -48,9 +48,9 @@ const page = () => {
       <PageHeader heading={"Transaction History"}></PageHeader>
       <FiltersBar />
       <div style={{ display: "flex", flex: "1" }} className="seprator">
-        <section className={styles.inventories_container}>
+        <section className={styles.product_container}>
           <div
-            className={`${styles.border_both} ${styles.inventories_details_heading}`}
+            className={`${styles.border_both} ${styles.product_details_heading}`}
           >
             <div
               style={{
