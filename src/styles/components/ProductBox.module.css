@@ -67,15 +67,3 @@
   border-left: 1px solid var(--light-border-color);
 }
 
-/* .box:hover .handler {
-  background: var(--selected-background);
-}
-
-.handler {
-  background: var(--primary-background);
-}
-
-.handler {
-  transition: 0.2s ease-in-out;
-  transition-delay: 0.4s;
-} */

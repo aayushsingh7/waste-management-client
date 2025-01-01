@@ -99,5 +99,20 @@
   cursor: pointer;
   font-weight: 600;
   display: flex;
-  align-requests: center;
+}
+
+.show {
+  width: 400px;
+}
+.hide {
+  width: 0px;
+}
+
+@media (max-width: 499px) {
+  .show {
+    width: 100vw;
+  }
+  .request_details {
+    width: calc(100vw - 20px);
+  }
 }

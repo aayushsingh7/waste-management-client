@@ -13,12 +13,14 @@
   position: static;
   top: 0;
   background: var(--primary-background);
+  z-index: 100;
+  transition: 0.2s ease-in-out;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: space-between;
   margin-bottom: 30px;
   padding: 10px;
   color: var(--primary-color);
@@ -76,4 +78,33 @@
 
 .split_children ul li:hover {
   background: #222222;
+}
+
+.hide {
+  left: 0%;
+}
+
+.show {
+  left: 0%;
+}
+
+.logo button {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .logo button {
+    display: flex;
+  }
+  .container {
+    position: absolute;
+    top: 0%;
+  }
+  .hide {
+    left: -300%;
+  }
+
+  .show {
+    left: 0%;
+  }
 }

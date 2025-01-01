@@ -27,6 +27,7 @@ const ProductBox = ({ data }) => {
           position: "sticky",
           left: "0",
           top: "0",
+          background: "var(--primary-background)",
         }}
         className={styles.handler}
       >

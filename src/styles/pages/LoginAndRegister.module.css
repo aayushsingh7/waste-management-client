@@ -89,3 +89,10 @@
 .cen span {
   color: var(--primary-color);
 }
+
+@media (max-width: 700px) {
+  .page form {
+    width: 100%;
+    padding: 20px;
+  }
+}

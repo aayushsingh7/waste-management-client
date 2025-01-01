@@ -35,7 +35,7 @@ const page = () => {
       </section>
       <section className={styles.how_it_works} id="how">
         <h2>How It Works?</h2>
-        <div className={styles.steps}>
+        <div className={`${styles.steps} ${styles.coo}`}>
           <span className={styles.line}></span>
           <span className={styles.step_span}>1</span>
           <span className={styles.step_span}>2</span>

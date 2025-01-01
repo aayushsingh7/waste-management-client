@@ -7,6 +7,7 @@ import Notification from "@/libs/notification";
 import { getSocket } from "@/libs/socket";
 import { useState } from "react";
 import styles from "../styles/layouts/ViewRequest.module.css";
+import { AiOutlineClose } from "react-icons/ai";
 
 const ViewRequest = ({}) => {
   const {
@@ -79,8 +80,9 @@ const ViewRequest = ({}) => {
 
   return (
     <section
-      className={styles.request_details_section}
-      style={{ width: viewRequest ? "400px" : "0px" }}
+      className={`${styles.request_details_section} ${
+        viewRequest ? styles.show : styles.hide
+      }`}
     >
       <div className={styles.request_details}>
         <div className={styles.header}>
@@ -89,15 +91,22 @@ const ViewRequest = ({}) => {
             <span className={`status_span ${selectedRequest.status}`}>
               {selectedRequest.status}
             </span>
-            {/* <Button
+
+            <Button
+              onClick={() => setViewRequest(false)}
               style={{
-                padding: "8px 20px",
-                fontSize: "0.58rem",
-                borderRadius: "5px",
+                background: "#222222",
+                width: "40px",
+                height: "40px",
+                borderRadius: "10px",
+                marginLeft: "10px",
+                border: "2px solid var(--light-border-color)",
               }}
             >
-              Delete
-            </Button> */}
+              <AiOutlineClose
+                style={{ color: "var(--primary-color)", marginRight: "0px" }}
+              />
+            </Button>
           </div>
         </div>
 

@@ -168,3 +168,43 @@
 .features .end {
   justify-content: end;
 }
+
+@media (max-width: 800px) {
+  .hero_section {
+    height: 100dvh;
+  }
+  .how_it_works {
+    padding: 15px;
+  }
+  .steps,
+  .features_con {
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+  .features {
+    padding: 100px 15px 15px 15px;
+    height: 100%;
+  }
+  .features_con {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 499px) {
+  .step {
+    margin-bottom: 0px;
+  }
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .coo {
+    display: none;
+  }
+  .hero_section h1 {
+    width: 90%;
+    font-size: 2rem;
+  }
+  .hero_section p {
+    width: 90%;
+  }
+}

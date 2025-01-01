@@ -12,6 +12,8 @@ export function AppProvider({ children }) {
   const [createNew, setCreateNew] = useState(false);
   const [pendingRequests, setPendingRequests] = useState([]);
   const [requestHistory, setRequestHistory] = useState([]);
+  const [showNavbar, setShowNavbar] = useState(false);
+  const [showHomeNavbar, setShowHomeNavbar] = useState(false);
 
   const addData = (isNew, type, data) => {
     if (!isNew) {
@@ -76,6 +78,8 @@ export function AppProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
+        showHomeNavbar,
+        showNavbar,
         verifyingUser,
         selectedRequest,
         user,
@@ -83,6 +87,7 @@ export function AppProvider({ children }) {
         createNew,
         pendingRequests,
         requestHistory,
+        setShowNavbar,
         setSelectedRequest,
         setCreateNew,
         setViewRequest,
@@ -90,6 +95,7 @@ export function AppProvider({ children }) {
         deleteData,
         setVerifyingUser,
         changeSeller,
+        setShowHomeNavbar,
       }}
     >
       {children}
