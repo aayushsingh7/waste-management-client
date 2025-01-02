@@ -11,7 +11,7 @@
 
 .page form {
   width: 600px;
-  padding: 60px;
+  padding: 10px 60px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -43,10 +43,15 @@
   flex-direction: column;
   background: #222222;
   border-radius: 10px;
-  padding: 20px;
+  width: 100%;
+  padding: 15px 20px;
   border: 3px solid var(--light-border-color);
   margin-top: 20px;
 }
+
+/* .banner .banner_sep {
+  margin-top: 15px;
+} */
 
 .banner h4 {
   color: var(--primary-color);
@@ -55,9 +60,13 @@
 }
 
 .banner p {
-  color: var(--primary-color);
+  color: var(--secondary-color);
   margin-top: 7px !important;
   font-size: 16px;
+}
+
+.banner p span {
+  color: var(--primary-color);
 }
 
 .seprator {

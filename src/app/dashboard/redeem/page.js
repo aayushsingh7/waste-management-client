@@ -17,9 +17,12 @@ const RewardPage = () => {
 
   useEffect(() => {
     if (user.role == "buyer") {
+      Notification.error("Buyers cannot redeem rewards.");
       router.push("/dashboard");
     }
-    fetchRewards();
+    if (rewards.length == 0) {
+      fetchRewards();
+    }
   }, []);
 
   const fetchRewards = async () => {

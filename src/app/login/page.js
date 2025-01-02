@@ -63,11 +63,27 @@ const LoginPage = ({}) => {
     <div className={styles.page}>
       <form onSubmit={(e) => e.preventDefault()}>
         <h2>Welcome Back🎉</h2>
-        {/* <div className={styles.banner}>
-          <h4>🚀Please use these credentials to login</h4>
-          <p>Email: d@gmail.com</p>
-          <p>Password: d</p>
-        </div> */}
+        <div className={styles.banner}>
+          <div className={styles.banner_sep}>
+            {/* <h4>Seller Credentails</h4> */}
+            <p>
+              <span>Seller Email</span>: testseller@gmail.com
+            </p>
+            <p>
+              <span>Seller Password</span>: test
+            </p>
+          </div>
+
+          <div className={styles.banner_sep} style={{ marginTop: "15px" }}>
+            {/* <h4>Buyer Credentails</h4> */}
+            <p>
+              <span>Buyer Email</span>: testbuyer@gmail.com
+            </p>
+            <p>
+              <span>Buyer Password</span>: test
+            </p>
+          </div>
+        </div>
         <div className={styles.inputs}>
           <Input
             name="email"

@@ -1,6 +1,7 @@
 "use client";
 
 import Page from "@/components/Page";
+import Notification from "@/libs/notification";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -13,7 +14,7 @@ const LogoutPage = ({}) => {
   const logout = async () => {
     try {
       const data = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/logout`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/logout`,
         {
           method: "DELETE",
           headers: {
@@ -23,7 +24,13 @@ const LogoutPage = ({}) => {
         }
       );
       let response = await data.json();
-      router.push("/login");
+      if (data.status == 200) {
+        router.push("/login");
+        Notification.success("Logout successfully");
+      } else {
+        router.back();
+        Notification.error("Oops! something went wrong");
+      }
     } catch (err) {
       console.log(err);
     }
