@@ -15,6 +15,13 @@
   background: var(--primary-background);
 }
 
+.handler {
+  background: var(--primary-background);
+}
+.active .handler {
+  background: var(--secondary-background) !important;
+}
+
 .active {
   background: var(--secondary-background) !important;
   border: 1px solid var(--active-light) !important;
@@ -66,4 +73,3 @@
   font-weight: 500;
   border-left: 1px solid var(--light-border-color);
 }
-

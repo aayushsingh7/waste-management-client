@@ -21,6 +21,7 @@ const AddRequest = ({}) => {
   const inputRef = useRef(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [newItem, setNewItem] = useState({
+    id: "",
     name: "",
     qty: "",
   });
@@ -35,16 +36,26 @@ const AddRequest = ({}) => {
     items: [],
   });
 
-  const addNewItem = () => {
+  const addNewItem = (id) => {
     setRequestDetails((oldData) => {
       return {
         ...oldData,
-        items: [newItem, ...oldData.items],
+        items: [{ ...newItem, id }, ...oldData.items],
       };
     });
     setNewItem({
+      id: "",
       name: "",
       qty: "",
+    });
+  };
+
+  const removeItem = (id) => {
+    setRequestDetails((oldData) => {
+      return {
+        ...oldData,
+        items: oldData.items.filter((data) => data.id !== id),
+      };
     });
   };
 
@@ -56,7 +67,13 @@ const AddRequest = ({}) => {
   };
 
   const createNewRequest = async () => {
-    console.log({ imageDataURL });
+    if (requestDetails.items.length == 0) {
+      Notification.error("Please add waste details");
+      return;
+    } else if (!imagePreview) {
+      Notification.error("Please upload a valid image");
+      return;
+    }
     setLoading(true);
     try {
       const newRequest = await fetch(
@@ -136,7 +153,7 @@ const AddRequest = ({}) => {
               className={styles.image}
               onClick={() => inputRef.current?.click()}
             >
-              <img src={imagePreview} alt="" />
+              {imagePreview && <img src={imagePreview} alt="" />}
               <Input
                 accept="image/*"
                 type="file"
@@ -146,7 +163,7 @@ const AddRequest = ({}) => {
               />
             </div>
           </div>
-          <Input
+          {/* <Input
             onChange={(e) => handleUserInput(e)}
             name="name"
             type="text"
@@ -174,7 +191,7 @@ const AddRequest = ({}) => {
               marginBottom: "15px",
               padding: "15px",
             }}
-          />
+          /> */}
 
           <Input
             onChange={(e) => handleUserInput(e)}
@@ -230,7 +247,9 @@ const AddRequest = ({}) => {
               />
               <Button
                 disabled={loading}
-                onClick={addNewItem}
+                onClick={() =>
+                  addNewItem(Math.floor(Math.random() * 100000000))
+                }
                 style={{
                   padding: "15px",
                   height: "50px",
@@ -245,10 +264,11 @@ const AddRequest = ({}) => {
             </div>
             {requestDetails.items.map((item) => {
               return (
-                <div key={Math.random() * 10000000} className={styles.items}>
+                <div key={item.id} className={styles.items}>
                   <span>{item.name}</span>
                   <span>{item.qty}</span>
                   <AiOutlineClose
+                    onClick={() => removeItem(item.id)}
                     style={{ color: "var(--primary-color)", fontSize: "23px" }}
                   />
                 </div>

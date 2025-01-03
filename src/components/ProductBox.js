@@ -13,7 +13,7 @@ const ProductBox = ({ data }) => {
   return (
     <div
       className={`${styles.box} ${styles.border_both} ${
-        selectedRequest._id == data._id ? styles.active : ""
+        selectedRequest._id == data._id && viewRequest ? styles.active : ""
       }`}
       onClick={() => {
         setViewRequest(selectedRequest._id == data._id ? !viewRequest : true);
@@ -27,7 +27,6 @@ const ProductBox = ({ data }) => {
           position: "sticky",
           left: "0",
           top: "0",
-          background: "var(--primary-background)",
         }}
         className={styles.handler}
       >
